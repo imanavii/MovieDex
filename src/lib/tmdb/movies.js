@@ -21,3 +21,15 @@ export async function searchMovies(query) {
 export async function getMovieDetails(id) {
   return tmdbFetch(`/movie/${id}`);
 }
+
+export async function getHindiMovies() {
+  return tmdbFetch(
+    "/discover/movie?with_original_language=hi&sort_by=popularity.desc"
+  );
+}
+
+export async function getMarathiMovies() {
+  return tmdbFetch(
+    "/discover/movie?with_original_language=mr&sort_by=popularity.desc"
+  );
+}

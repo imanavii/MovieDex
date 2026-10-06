@@ -26,7 +26,7 @@ export default async function SearchPage({ searchParams }) {
 
   return (
     <main className="min-h-screen bg-[#070707] px-6 py-10 text-white">
-      <div className="mx-auto max-w-[1500px]">
+      <div className="mx-auto max-w-375">
         {/* Back */}
         <Link
           href="/"
@@ -46,7 +46,7 @@ export default async function SearchPage({ searchParams }) {
           </h1>
 
           <form action="/search" method="GET" className="mt-8">
-            <InputGroup className="h-14 rounded-full border-white/10 bg-white/[0.06] shadow-2xl backdrop-blur-xl">
+            <InputGroup className="h-14 rounded-full border-white/10 bg-white/6 shadow-2xl backdrop-blur-xl">
               <InputGroupAddon align="inline-start">
                 <Search className="h-5 w-5 text-zinc-500" />
               </InputGroupAddon>
@@ -85,7 +85,7 @@ export default async function SearchPage({ searchParams }) {
                 ))}
               </div>
             ) : (
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-16 text-center">
+              <div className="rounded-2xl border border-white/10 bg-white/6 px-6 py-16 text-center">
                 <p className="text-zinc-400">
                   No movies found.
                 </p>

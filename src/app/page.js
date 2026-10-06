@@ -4,6 +4,8 @@ import {
   getTrendingMovies,
   getPopularMovies,
   getTopRatedMovies,
+   getHindiMovies,
+  getMarathiMovies,
 } from "@/lib/tmdb/movies";
 import { Search } from "lucide-react";
 import {
@@ -13,10 +15,12 @@ import {
 } from "@/components/ui/input-group";
 
 export default async function Home() {
-  const [trending, popular, topRated] = await Promise.all([
+  const [trending, popular, topRated, hindi, marathi] = await Promise.all([
     getTrendingMovies(),
     getPopularMovies(),
     getTopRatedMovies(),
+    getHindiMovies(),
+    getMarathiMovies(),
   ]);
 
   return (
@@ -42,7 +46,7 @@ export default async function Home() {
 
           {/* Search */}
           <form action="/search" className="mt-10 w-full max-w-2xl">
-            <InputGroup className="h-14 rounded-full border-white/10 bg-white/[0.06] shadow-2xl backdrop-blur-xl">
+            <InputGroup className="h-14 rounded-full border-white/10 bg-white/6 shadow-2xl backdrop-blur-xl">
               <InputGroupAddon align="inline-start">
                 <Search className="h-5 w-5 text-zinc-500" />
               </InputGroupAddon>
@@ -68,6 +72,16 @@ export default async function Home() {
         <MovieRow
           title="Popular Movies"
           movies={popular.results?.slice(0, 10) || []}
+        />
+
+        <MovieRow
+          title="Hindi Movies"
+          movies={hindi.results?.slice(0, 10) || []}
+        />
+
+        <MovieRow
+          title="Marathi Movies"
+          movies={marathi.results?.slice(0, 10) || []}
         />
 
         <MovieRow
