@@ -5,6 +5,12 @@ import {
   getPopularMovies,
   getTopRatedMovies,
 } from "@/lib/tmdb/movies";
+import { Search } from "lucide-react";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 export default async function Home() {
   const [trending, popular, topRated] = await Promise.all([
@@ -35,17 +41,20 @@ export default async function Home() {
           </p>
 
           {/* Search */}
-          <div className="mt-10 w-full max-w-2xl">
-            <div className="flex h-14 items-center rounded-full border border-white/10 bg-white/6 px-5 shadow-2xl backdrop-blur-xl">
-              <span className="mr-3 text-zinc-500">⌕</span>
+          <form action="/search" className="mt-10 w-full max-w-2xl">
+            <InputGroup className="h-14 rounded-full border-white/10 bg-white/[0.06] shadow-2xl backdrop-blur-xl">
+              <InputGroupAddon align="inline-start">
+                <Search className="h-5 w-5 text-zinc-500" />
+              </InputGroupAddon>
 
-              <input
+              <InputGroupInput
+                name="q"
                 type="text"
                 placeholder="Search movies, actors, genres..."
-                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-zinc-500"
+                className="text-sm text-white placeholder:text-zinc-500"
               />
-            </div>
-          </div>
+            </InputGroup>
+          </form>
         </div>
       </section>
 
