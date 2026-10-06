@@ -18,6 +18,16 @@ export async function searchMovies(query) {
   );
 }
 
+export async function discoverMovies(language = "") {
+  const languageParam = language
+    ? `&with_original_language=${language}`
+    : "";
+
+  return tmdbFetch(
+    `/discover/movie?sort_by=popularity.desc${languageParam}`
+  );
+}
+
 export async function getMovieDetails(id) {
   return tmdbFetch(`/movie/${id}`);
 }

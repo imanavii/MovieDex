@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import MovieRow from "@/components/movie/MovieRow";
+
 import {
   getTrendingMovies,
   getPopularMovies,
@@ -7,12 +8,15 @@ import {
    getHindiMovies,
   getMarathiMovies,
 } from "@/lib/tmdb/movies";
+
 import { Search } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const [trending, popular, topRated, hindi, marathi] = await Promise.all([
@@ -59,6 +63,39 @@ export default async function Home() {
               />
             </InputGroup>
           </form>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+  <Button
+    asChild
+    variant="outline"
+    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
+  >
+    <a href="/search">All</a>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
+  >
+    <a href="/search?language=en">English</a>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
+  >
+    <a href="/search?language=hi">Hindi</a>
+  </Button>
+
+  <Button
+    asChild
+    variant="outline"
+    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
+  >
+    <a href="/search?language=mr">Marathi</a>
+  </Button>
+</div>
         </div>
       </section>
 
