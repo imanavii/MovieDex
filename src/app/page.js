@@ -16,7 +16,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-import { Button } from "@/components/ui/button";
+import { ElasticText } from "@/components/godui/elastic-text";
 
 export default async function Home() {
   const [trending, popular, topRated, hindi, marathi] = await Promise.all([
@@ -40,9 +40,12 @@ export default async function Home() {
             Your cinematic universe
           </p>
 
-          <h1 className="text-6xl font-bold tracking-[-0.04em] sm:text-7xl md:text-8xl">
-            MovieDex
-          </h1>
+          <ElasticText
+  mode="hover"
+  className="text-6xl font-bold tracking-[-0.04em] sm:text-7xl md:text-8xl"
+>
+  MovieDex
+</ElasticText>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
             Discover movies worth watching. Find your next obsession.
@@ -64,37 +67,28 @@ export default async function Home() {
             </InputGroup>
           </form>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
-  <Button
-    asChild
-    variant="outline"
-    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
-  >
-    <a href="/search">All</a>
-  </Button>
+  
 
-  <Button
-    asChild
-    variant="outline"
-    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
-  >
-    <a href="/search?language=en">English</a>
-  </Button>
+ <a
+  href="/search?language=en"
+  className="rounded-full border border-white/10 bg-white/6 px-5 py-2 text-sm text-zinc-300 transition hover:bg-white/10 hover:text-white"
+>
+  English
+</a>
 
-  <Button
-    asChild
-    variant="outline"
-    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
-  >
-    <a href="/search?language=hi">Hindi</a>
-  </Button>
+<a
+  href="/search?language=hi"
+  className="rounded-full border border-white/10 bg-white/6 px-5 py-2 text-sm text-zinc-300 transition hover:bg-white/10 hover:text-white"
+>
+  Hindi
+</a>
 
-  <Button
-    asChild
-    variant="outline"
-    className="rounded-full border-white/10 bg-white/6 px-5 text-zinc-300 hover:bg-white/10 hover:text-white"
-  >
-    <a href="/search?language=mr">Marathi</a>
-  </Button>
+<a
+  href="/search?language=mr"
+  className="rounded-full border border-white/10 bg-white/6 px-5 py-2 text-sm text-zinc-300 transition hover:bg-white/10 hover:text-white"
+>
+  Marathi
+</a>
 </div>
         </div>
       </section>

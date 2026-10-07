@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowLeft, Star, Clock, Calendar } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
@@ -30,16 +29,13 @@ export default function MovieDetails({ movie }) {
 
         {/* Back button */}
         <div className="absolute left-6 top-6 z-10 lg:left-10">
-          <Button
-            asChild
-            variant="ghost"
-            className="rounded-full border border-white/10 bg-black/30 text-white backdrop-blur-md hover:bg-white/10 hover:text-white"
-          >
-            <Link href="/">
-              <ArrowLeft />
-              Back
-            </Link>
-          </Button>
+          <Link
+  href="/"
+  className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white backdrop-blur-md transition hover:bg-white/10"
+>
+  <ArrowLeft />
+  Back
+</Link>
         </div>
 
         {/* Movie information */}
