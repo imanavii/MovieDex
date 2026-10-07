@@ -13,12 +13,30 @@ export default function MovieClapper() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
-  async function handleLogin(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     setLoading(true);
     setError("");
+
+    if (isSignup) {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+
+      setError("Check your email to confirm your account.");
+      setLoading(false);
+      return;
+    }
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -89,15 +107,17 @@ export default function MovieClapper() {
         </p>
 
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-white">
-          Sign in to MovieDex
+          {isSignup ? "Join MovieDex" : "Sign in to MovieDex"}
         </h1>
 
         <p className="mt-2 text-sm leading-relaxed text-zinc-500">
-          Your watchlist, favorites, and cinematic universe await.
+          {isSignup
+            ? "Create your account and start building your cinematic universe."
+            : "Your watchlist, favorites, and cinematic universe await."}
         </p>
 
-        {/* Login */}
-        <form onSubmit={handleLogin} className="mt-7 space-y-4">
+        {/* Login / Signup */}
+        <form onSubmit={handleSubmit} className="mt-7 space-y-4">
           <div>
             <label className="mb-2 block text-xs uppercase tracking-[0.2em] text-zinc-500">
               Email
@@ -124,12 +144,13 @@ export default function MovieClapper() {
               onChange={(event) => setPassword(event.target.value)}
               placeholder="••••••••"
               required
+              minLength={6}
               className="h-12 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none transition placeholder:text-zinc-700 focus:border-white/25 focus:bg-white/7"
             />
           </div>
 
           {error && (
-            <p className="text-sm text-red-400">
+            <p className="text-sm text-zinc-400">
               {error}
             </p>
           )}
@@ -139,9 +160,26 @@ export default function MovieClapper() {
             disabled={loading}
             className="h-12 w-full rounded-xl bg-white text-sm font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "Rolling..." : "Enter the screening room"}
+            {loading
+              ? "Rolling..."
+              : isSignup
+                ? "Join the production"
+                : "Enter the screening room"}
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={() => {
+            setIsSignup(!isSignup);
+            setError("");
+          }}
+          className="mt-5 w-full text-center text-sm font-medium text-zinc-300 transition hover:text-white"
+        >
+          {isSignup
+            ? "Already part of the cast? Sign in"
+            : "New to MovieDex? Create an account"}
+        </button>
 
         <div className="mt-6 border-t border-white/10 pt-5 text-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-700">
