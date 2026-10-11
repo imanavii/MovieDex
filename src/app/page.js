@@ -1,5 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import MovieRow from "@/components/movie/MovieRow";
+import PageTransition from "@/components/layout/PageTransition";
+
 
 import {
   getTrendingMovies,
@@ -28,6 +30,7 @@ export default async function Home() {
   ]);
 
   return (
+    <PageTransition>
     <main className="min-h-screen bg-[#070707] text-white">
       <Navbar />
 
@@ -121,5 +124,6 @@ export default async function Home() {
         />
       </div>
     </main>
+    </PageTransition>
   );
 }

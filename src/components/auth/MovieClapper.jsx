@@ -14,6 +14,7 @@ export default function MovieClapper() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -49,40 +50,91 @@ export default function MovieClapper() {
       return;
     }
 
-    router.push("/");
-    router.refresh();
+    setIsExiting(true);
+
+    setTimeout(() => {
+      router.push("/");
+      router.refresh();
+    }, 450);
   }
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      animate={
+        isExiting
+          ? {
+              x: [0, 80, 120, -700],
+              y: [0, -10, -50, 20],
+              scale: [1, 1.05, 0.8, 0.35],
+              rotate: [0, 2, 8, -12],
+              opacity: [1, 1, 0.9, 0],
+            }
+          : {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }
+      }
+      transition={
+        isExiting
+          ? {
+              duration: 1.4,
+              ease: "easeInOut",
+              times: [0, 0.25, 0.55, 1],
+            }
+          : {
+              duration: 0.6,
+              ease: "easeOut",
+            }
+      }
       className="relative w-full max-w-md"
     >
       {/* Clapper */}
-      <div className="relative z-20 h-14 -rotate-2 overflow-hidden rounded-t-xl border border-white/15 bg-zinc-900 shadow-2xl">
-        <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.9) 18px 32px)",
-          }}
-        />
+      <motion.div
+  animate={
+    isExiting
+      ? {
+          rotate: [-2, -18, 2, 0],
+        }
+      : {
+          rotate: -2,
+        }
+  }
+  transition={
+    isExiting
+      ? {
+          duration: 0.45,
+          times: [0, 0.35, 0.7, 1],
+          ease: ["easeOut", "easeIn", "easeOut"],
+        }
+      : {
+          duration: 0.3,
+          ease: "easeOut",
+        }
+  }
+  className="relative z-20 h-14 origin-left overflow-hidden rounded-t-xl border border-white/15 bg-zinc-900 shadow-2xl"
+>
+  <div
+    className="absolute inset-0 opacity-80"
+    style={{
+      backgroundImage:
+        "repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.9) 18px 32px)",
+    }}
+  />
 
-        <div className="absolute inset-0 bg-black/30" />
+  <div className="absolute inset-0 bg-black/30" />
 
-        <div className="relative flex h-full items-center justify-between px-5">
-          <span className="text-xs font-bold tracking-[0.3em] text-white">
-            MOVIEDEX
-          </span>
+  <div className="relative flex h-full items-center justify-between px-5">
+    <span className="text-xs font-bold tracking-[0.3em] text-white">
+      MOVIEDEX
+    </span>
 
-          <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-400">
-            Scene 01
-          </span>
-        </div>
-      </div>
-
+    <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-400">
+      Scene 01
+    </span>
+  </div>
+</motion.div>
       {/* Slate */}
       <div className="relative -mt-1 rounded-b-2xl border border-white/10 bg-zinc-950 p-7 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
         <div className="mb-7 grid grid-cols-3 gap-4 border-b border-white/10 pb-5 text-[10px] uppercase tracking-[0.2em]">
@@ -116,7 +168,6 @@ export default function MovieClapper() {
             : "Your watchlist, favorites, and cinematic universe await."}
         </p>
 
-        {/* Login / Signup */}
         <form onSubmit={handleSubmit} className="mt-7 space-y-4">
           <div>
             <label className="mb-2 block text-xs uppercase tracking-[0.2em] text-zinc-500">
@@ -157,7 +208,7 @@ export default function MovieClapper() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || isExiting}
             className="h-12 w-full rounded-xl bg-white text-sm font-semibold text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading
@@ -170,6 +221,7 @@ export default function MovieClapper() {
 
         <button
           type="button"
+          disabled={isExiting}
           onClick={() => {
             setIsSignup(!isSignup);
             setError("");
