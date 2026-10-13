@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Star, Clock, Calendar } from "lucide-react";
+import MovieSaveActions from "@/components/movie/MovieSaveActions";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
@@ -15,7 +16,7 @@ export default function MovieDetails({ movie }) {
   return (
     <main className="min-h-screen bg-[#070707] text-white">
       {/* Backdrop */}
-      <div className="relative h-[70vh] min-h-137.5 overflow-hidden">
+      <div className="relative min-h-155 h-[min(78vh,760px)] overflow-hidden">
         {movie.backdrop_path && (
           <img
             src={`${IMAGE_BASE_URL}/original${movie.backdrop_path}`}
@@ -40,19 +41,19 @@ export default function MovieDetails({ movie }) {
 
         {/* Movie information */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
-          <div className="mx-auto flex max-w-375 items-end gap-8 px-6 pb-12 lg:px-10">
+          <div className="mx-auto flex max-w-360 items-end gap-8 px-6 pb-12 lg:gap-10 lg:px-10">
             {/* Poster */}
-            <div className="hidden w-55 shrink-0 overflow-hidden rounded-2xl shadow-2xl md:block">
+            <div className="hidden w-55 shrink-0 self-end overflow-hidden rounded-2xl shadow-2xl md:block lg:w-60">
               {movie.poster_path && (
                 <img
                   src={`${IMAGE_BASE_URL}/w500${movie.poster_path}`}
                   alt={movie.title}
-                  className="w-full"
+                  className="aspect-2/3 w-full object-cover"
                 />
               )}
             </div>
 
-            <div className="max-w-3xl">
+            <div className="min-w-0 max-w-190 flex-1">
               <div className="mb-4 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
                 {year && (
                   <span className="flex items-center gap-1">
@@ -87,6 +88,7 @@ export default function MovieDetails({ movie }) {
               <p className="mt-6 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
                 {movie.overview}
               </p>
+              <MovieSaveActions movie={movie} />
 
               {/* Genres */}
               {movie.genres?.length > 0 && (
