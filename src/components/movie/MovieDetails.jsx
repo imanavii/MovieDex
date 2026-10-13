@@ -30,12 +30,12 @@ export default function MovieDetails({ movie }) {
         {/* Back button */}
         <div className="absolute left-6 top-6 z-10 lg:left-10">
           <Link
-  href="/"
-  className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white backdrop-blur-md transition hover:bg-white/10"
->
-  <ArrowLeft />
-  Back
-</Link>
+            href="/"
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white backdrop-blur-md transition hover:bg-white/10"
+          >
+            <ArrowLeft />
+            Back
+          </Link>
         </div>
 
         {/* Movie information */}
@@ -80,7 +80,7 @@ export default function MovieDetails({ movie }) {
 
               {movie.tagline && (
                 <p className="mt-4 text-lg italic text-zinc-400">
-                  "{movie.tagline}"
+                  &quot;{movie.tagline}&quot;
                 </p>
               )}
 

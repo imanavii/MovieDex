@@ -5,15 +5,17 @@ import { getMovieDetails } from "@/lib/tmdb/movies";
 export default async function MoviePage({ params }) {
   const { id } = await params;
 
+  let movie;
+
   try {
-    const movie = await getMovieDetails(id);
-
-    if (!movie?.id) {
-      notFound();
-    }
-
-    return <MovieDetails movie={movie} />;
+    movie = await getMovieDetails(id);
   } catch {
     notFound();
   }
+
+  if (!movie?.id) {
+    notFound();
+  }
+
+  return <MovieDetails movie={movie} />;
 }
