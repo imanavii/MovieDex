@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { UserRound } from "lucide-react";
 
 const linkClass =
   "text-sm text-zinc-400 transition hover:text-white";
@@ -101,26 +102,31 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-3">
-        {user && (
-          <span className="hidden max-w-40 truncate text-xs text-zinc-500 lg:block">
-            {user.email}
-          </span>
-        )}
-
         {checkingSession ? (
           <span
             aria-label="Checking sign-in status"
             className="h-9 w-16 animate-pulse rounded-full border border-white/10 bg-white/5"
           />
         ) : user ? (
-          <button
-            type="button"
-            onClick={handleLogout}
-            disabled={loggingOut}
-            className={actionClass}
-          >
-            {loggingOut ? "Signing out…" : "Logout"}
-          </button>
+          <>
+            <Link
+              href="/profile"
+              aria-label="Your profile"
+              title="Your profile"
+              className={`${actionClass} flex h-10 w-10 items-center justify-center px-0! py-0!`}
+            >
+              <UserRound size={18} strokeWidth={1.8} />
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              disabled={loggingOut}
+              className={actionClass}
+            >
+              {loggingOut ? "Signing out…" : "Logout"}
+            </button>
+          </>
         ) : (
           <Link href="/login" className={actionClass}>
             Login
