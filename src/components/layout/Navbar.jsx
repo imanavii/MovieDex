@@ -23,10 +23,13 @@ export default function Navbar() {
     let mounted = true;
 
     async function loadUser() {
-      const { data, error } = await supabase.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
 
       if (mounted) {
-        setUser(error ? null : data.user ?? null);
+        setUser(error ? null : user ?? null);
         setCheckingSession(false);
       }
     }
@@ -49,24 +52,29 @@ export default function Navbar() {
   }, []);
 
   async function handleLogout() {
+    if (loggingOut) return;
+
     setLoggingOut(true);
 
-    const supabase = createClient();
-    const { error } = await supabase.auth.signOut();
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signOut();
 
-    if (error) {
+      if (error) {
+        console.error("Logout failed:", error);
+        return;
+      }
+
+      setUser(null);
+      router.replace("/");
+      router.refresh();
+    } finally {
       setLoggingOut(false);
-      return;
     }
-
-    setUser(null);
-    router.replace("/");
-    router.refresh();
-    setLoggingOut(false);
   }
 
   return (
-    <nav className="absolute left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-6 lg:px-10">
+    <nav className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-white/5 bg-[#070707]/85 px-6 py-5 backdrop-blur-xl lg:px-10">
       <Link
         href="/"
         className="text-xl font-semibold tracking-tight text-white"
@@ -78,12 +86,15 @@ export default function Navbar() {
         <Link href="/" className={linkClass}>
           Home
         </Link>
+
         <Link href="/discover" className={linkClass}>
           Discover
         </Link>
+
         <Link href="/watchlist" className={linkClass}>
           Watchlist
         </Link>
+
         <Link href="/favorites" className={linkClass}>
           Favorites
         </Link>
