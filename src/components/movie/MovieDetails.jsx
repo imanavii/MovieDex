@@ -48,7 +48,7 @@ export default function MovieDetails({ movie }) {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#070707] text-white">
       {/* HERO */}
-      <section className="relative isolate min-h-[680px] overflow-hidden sm:min-h-[720px] lg:min-h-[760px]">
+      <section className="relative isolate min-h-170 overflow-hidden sm:min-h-180 lg:min-h-190">
         {/* Backdrop */}
         {movie.backdrop_path && (
           <img
@@ -60,8 +60,8 @@ export default function MovieDetails({ movie }) {
         )}
 
         {/* Cinematic overlays */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#070707] via-[#070707]/65 to-black/25" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#070707]/90 via-[#070707]/45 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-linear-to-t from-[#070707] via-[#070707]/65 to-black/25" />
+        <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#070707]/90 via-[#070707]/45 to-transparent" />
 
         {/* Back button */}
         <div className="absolute left-5 top-5 z-20 sm:left-8 sm:top-7 lg:left-10">
@@ -75,7 +75,7 @@ export default function MovieDetails({ movie }) {
         </div>
 
         {/* Main movie information */}
-        <div className="relative z-10 mx-auto flex min-h-[680px] max-w-[1440px] items-end px-5 pb-12 pt-28 sm:min-h-[720px] sm:px-8 sm:pb-16 lg:min-h-[760px] lg:px-12">
+        <div className="relative z-10 mx-auto flex min-h-170 max-w-360 items-end px-5 pb-12 pt-28 sm:min-h-180 sm:px-8 sm:pb-16 lg:min-h-190 lg:px-12">
           <div className="flex w-full items-end gap-8 lg:gap-12">
             {/* Poster */}
             {movie.poster_path && (
@@ -83,7 +83,7 @@ export default function MovieDetails({ movie }) {
                 <img
                   src={`${IMAGE_BASE_URL}/w500${movie.poster_path}`}
                   alt={`${movie.title} poster`}
-                  className="aspect-[2/3] w-full object-cover"
+                  className="aspect-2/3 w-full object-cover"
                 />
               </div>
             )}
@@ -167,7 +167,7 @@ export default function MovieDetails({ movie }) {
 
       {/* CAST — separate section below the hero */}
       {cast.length > 0 && (
-        <section className="mx-auto max-w-[1440px] px-5 pb-20 pt-8 sm:px-8 sm:pt-12 lg:px-12">
+        <section className="mx-auto max-w-360 px-5 pb-20 pt-8 sm:px-8 sm:pt-12 lg:px-12">
           <div className="mb-7">
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-zinc-500">
               The people behind the film
@@ -177,13 +177,13 @@ export default function MovieDetails({ movie }) {
             </h2>
           </div>
 
-          <div className="flex gap-4 overflow-x-auto pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-4 overflow-x-auto scrollbar-none pb-5 [&::-webkit-scrollbar]:hidden">
             {cast.map((person) => (
               <article
                 key={`${person.id}-${person.cast_id ?? person.order}`}
                 className="w-32 shrink-0 sm:w-36"
               >
-                <div className="aspect-[3/4] overflow-hidden rounded-xl bg-zinc-900 ring-1 ring-white/10">
+                <div className="aspect-3/4 overflow-hidden rounded-xl bg-zinc-900 ring-1 ring-white/10">
                   {person.profile_path ? (
                     <img
                       src={`${IMAGE_BASE_URL}/w185${person.profile_path}`}
