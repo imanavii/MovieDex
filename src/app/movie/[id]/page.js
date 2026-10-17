@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import MovieDetails from "@/components/movie/MovieDetails";
 import { getMovieDetails } from "@/lib/tmdb/movies";
+import ScrollToTop from "@/components/movie/ScrollToTop";
 
 export default async function MoviePage({ params }) {
   const { id } = await params;
@@ -17,5 +18,10 @@ export default async function MoviePage({ params }) {
     notFound();
   }
 
-  return <MovieDetails movie={movie} />;
+  return (
+    <>
+      <ScrollToTop />
+      <MovieDetails movie={movie} />
+    </>
+  );
 }

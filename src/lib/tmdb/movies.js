@@ -29,7 +29,7 @@ export async function discoverMovies(language = "") {
 }
 
 export async function getMovieDetails(id) {
-  return tmdbFetch(`/movie/${id}`);
+  return tmdbFetch(`/movie/${id}?append_to_response=credits,videos`);
 }
 
 export async function getHindiMovies() {
